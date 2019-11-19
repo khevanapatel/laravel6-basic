@@ -19,9 +19,24 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('profile_pic')->nullable();
+            $table->integer('role_id')->nullable();
+            $table->integer('is_active')->comment('0 = Block, 1 = Active')->default(1);
             $table->rememberToken();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
+
+
+        DB::table('users')->insert(array(
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'email_verified_at' => date('Y-m-d H:m:s'),
+            'password' => bcrypt(123456789),
+            'role_id' => 1,
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:m:s')
+        ));
     }
 
     /**
