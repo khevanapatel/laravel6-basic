@@ -27,6 +27,7 @@ class LoginController extends Controller
      * @var string
      */
     // protected $redirectTo = '/home';
+    // Redirect to dashboard or login based on Auth status
     protected function redirectTo()
     {
         if (Auth::user() && Auth::user()->role_id==1) {

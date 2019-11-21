@@ -10,7 +10,7 @@ use App\User;
 class UserController extends Controller
 {
     public function getList(){
-    	$users = User::where('role_id',2)->get();
+    	$users = User::where('role_id',2)->get(); // fetching only user role data
     	return view('admin.user.list',compact('users'));
     }
 

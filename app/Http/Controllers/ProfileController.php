@@ -15,6 +15,7 @@ class ProfileController extends Controller
     	return view('profile',compact('users'));
     }
 
+    // Updating User profile data
     public function update(Request $request){
     	Validator::make($request->all(), [
             'name' => 'required|string|min:3',
@@ -36,6 +37,7 @@ class ProfileController extends Controller
         return redirect()->back()->with('success','Your profile is updated successfully.');
     }
 
+    // Change password by verifying old one first
     public function changePassword(Request $request){
     	Validator::make($request->all(), [
             'old_password' => 'required|min:8',
