@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('profile_pic')->nullable();
             $table->integer('role_id')->nullable();
             $table->integer('is_active')->comment('0 = Block, 1 = Active')->default(1);
+            $table->string('api_token')->nullable();
+            $table->integer('otp')->nullable();
+            $table->integer('session_otp')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
