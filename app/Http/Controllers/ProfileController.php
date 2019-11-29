@@ -34,7 +34,11 @@ class ProfileController extends Controller
             }
         }
         $user->save();
-        return redirect()->back()->with('success','Your profile is updated successfully.');
+        if ($request->wantsJson()){
+            return response()->json(['data' => 'Your profile is updated successfully'], 201);
+        }else{
+            return redirect()->back()->with('success','Your profile is updated successfully.');
+        }
     }
 
     // Change password by verifying old one first
@@ -47,11 +51,18 @@ class ProfileController extends Controller
         	$user = User::find(Auth::user()->id);
             $user->password = Hash::make($request->new_password);
             $user->save();
-            return redirect()->back()->with('success','Your password is changed successfully.');
+            if ($request->wantsJson()){
+                return response()->json(['success','Your password is changed successfully.']);
+            }else{
+                return redirect()->back()->with('success','Your password is changed successfully.');
+            }
         }
         else{
-            return redirect()->back()->with('error','Oops! You entered wrong current password.');
-
+            if ($request->wantsJson()){
+                return response()->json(['error','Oops! You entered wrong Old password.']);
+            }else{
+                return redirect()->back()->with('error','Oops! You entered wrong Old password.');
+            }
         }
 
     }

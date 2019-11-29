@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Guard;
 use session;
+use App\User;
+use Str;
 
 class LoginController extends Controller
 {
@@ -51,20 +53,35 @@ class LoginController extends Controller
             'password'=>'required'
         ]);
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-            if(Auth::user()->email_verified_at != null){
+            if(Auth::user()->email_verified_at != null){                     // Check user is Verified or not...
                 if(Auth::user()->is_active==0){
                     Auth::logout();
                     return response()->json(['error', 'Your account has not yet been activated. Please check Your email']);
-                } else if (Auth::user() && Auth::user()->role_id==2) {
-                    return response()->json(['message', 'Login Success','data', Auth::user()]);
+                }else if (Auth::user() && Auth::user()->role_id==2) {       // User Login...
+                    if(Auth::user()->api_token == null){                    // If token is empty then generate token...
+                        $user=User::find(Auth::user()->id);
+                        $user->api_token = Str::random(60);
+                        $user->save();
+                        return response()->json(['message', 'Login Success','Data', $user]);
+                    }else{
+                        return response()->json(['message', 'Login Success','Data', Auth::user()]);
+                    }
+                }else if (Auth::user() && Auth::user()->role_id==1) {
+                    if(Auth::user()->api_token == null){                    // If token is empty then generate token...
+                        $userAdmin=User::find(Auth::user()->id);
+                        $userAdmin->api_token = Str::random(60);
+                        $userAdmin->save();
+                        return response()->json(['message', 'Login Success','Data', $userAdmin]);
+                    }
                 }
             }else{
                 return response()->json(['message', 'Please Verify Your Email-address']);
             }
         }else {
-            return response()->json(['error', 'Address email or/and password are incorrect.']);
+            return response()->json(['error', 'Email Address or/and password are incorrect.']);
         }
     }
+   
     /**
      * Create a new controller instance.
      *
