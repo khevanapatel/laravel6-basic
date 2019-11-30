@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,13 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function welcome()
+    {
+        $address = Setting::where('slug', 'address')->value('value');
+        $email = Setting::where('slug', 'email')->value('value');
+        $mobile = Setting::where('slug', 'mobile')->value('value');
+        return view('welcome', compact('address', 'email', 'mobile'));
     }
 }

@@ -12,21 +12,41 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
    @include('layouts.admin.head')
+
    @yield('css')
 </head>
-<body>
-	<div id="app" class="page-body-wrapper">
-	    <div class="page-sidebar">
-	    	@include('layouts.admin.sidebar')
-	    </div>
-	    <div class="page-body">
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+	    <div id="app" >
 		    @include('layouts.admin.header')
-		    <div class="container">
-		        <main class="py-4">
-		            @yield('content')
-		        </main>
-	    	</div>
-	    </div>
+		    
+	    	@include('layouts.admin.sidebar')
+	    	<!-- Content Wrapper. Contains page content -->
+	    	<div class="content-wrapper">
+			    <!-- Content Header (Page header) -->
+			    <div class="content-header">
+			      <div class="container-fluid">
+			        <div class="row mb-2">
+			          <div class="col-sm-6">
+			            <h1 class="m-0 text-dark">@yield('title')</h1>
+			          </div><!-- /.col -->
+			          <div class="col-sm-6">
+			            <ol class="breadcrumb float-sm-right">
+			              <li class="breadcrumb-item"><a href="#">Home</a></li>
+			              <li class="breadcrumb-item active">Starter Page</li>
+			            </ol>
+			          </div><!-- /.col -->
+			        </div><!-- /.row -->
+			      </div><!-- /.container-fluid -->
+			    </div>
+			    <!-- Main content -->
+			    <div class="content">
+				    @yield('content')
+				</div>
+			    <!-- /.content -->
+			  </div>
+			  <!-- /.content-wrapper -->
+		</div> 
 	    @include('layouts.admin.script')
 	    @yield('script')
 	</div>

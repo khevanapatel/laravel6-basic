@@ -8,16 +8,29 @@ Step2: Install vendor
 
 	command: "composer install"
 
-Step3: Create your new database for this laravel project and update ypur .env credential for hostname, database name, username
+Step3: Create your new database for this laravel project and Create a .env file without an APP_KEY= line.
+ set hostname, database name, username
 
 DB_DATABASE=
 DB_USERNAME=
 DB_PASSWORD=
 
-Step4: Run migrate command to set datanbase tables
+Step4: Run php artisan key:gene
+
+Step5: Run migrate command to set datanbase tables
 
 	command: "php artisan migrate" 
 
-Step5: Now ready to run project
+Step6: Now ready to run project
 
 	command: "php artisan serve"
+
+Step7: Login to Dashboard
+
+	Admin: 
+		Email : admin@gmail.com
+		password : 123456789
+
+	User: 
+		Email: user@gmail.com
+		password: 123456789

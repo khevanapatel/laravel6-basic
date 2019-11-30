@@ -7,6 +7,7 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
+            <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
@@ -100,5 +101,65 @@
                 </div>
             </div>
         </div>
+        <!-- Footer -->
+        <footer class="page-footer font-small blue pt-4">
+
+          <!-- Footer Links -->
+          <div class="container-fluid text-center text-md-left">
+
+            <!-- Grid row -->
+            <div class="row">
+
+              <!-- Grid column -->
+              <div class="col-md-3 mt-md-0 mt-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase">Laravel</h5>
+              </div>
+              <!-- Grid column -->
+
+              <hr class="clearfix w-100 d-md-none pb-3">
+
+              <!-- Grid column -->
+              <div class="col-md-6 mb-md-0 mb-3">
+
+                <!-- Links -->
+                <h5 class="text-uppercase">Contact Us</h5>
+
+                <p>{{$address}}</p>
+                <p>{{$email}}</p>
+                <p>{{$mobile}}</p>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-md-3 mb-md-0 mb-3">
+                <!-- Links -->
+                <h5 class="text-uppercase">Links</h5>
+                <ul class="list-unstyled">
+                  <li>
+                    <a href="#!">About Us</a>
+                  </li>
+                  <li>
+                    <a href="#!">Privacy Policy</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+          </div>
+          <!-- Footer Links -->
+
+          <!-- Copyright -->
+          <div class="footer-copyright text-center py-3">© 2018 Copyright:
+            <a href="https://webiots.com"> Webiots</a>
+          </div>
+          <!-- Copyright -->
+
+        </footer>
+        <!-- Footer -->
     </body>
 </html>

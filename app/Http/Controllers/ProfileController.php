@@ -38,6 +38,7 @@ class ProfileController extends Controller
             return response()->json(['Success' => 'Your profile is updated successfully','Data' => Auth::user()], 201);
         }else{
             return redirect()->back()->with('Success','Your profile is updated successfully.');
+
         }
     }
 
@@ -52,9 +53,10 @@ class ProfileController extends Controller
             $user->password = Hash::make($request->new_password);
             $user->save();
             if ($request->wantsJson()){
-                return response()->json(['Success','Your password is changed successfully.']);
+
+                return response()->json(['Success'=>'Your password has been changed successfully.']);
             }else{
-                return redirect()->back()->with('Success','Your password is changed successfully.');
+                return redirect()->back()->with('Success','Your password has been changed successfully.');
             }
         }
         else{
@@ -62,6 +64,7 @@ class ProfileController extends Controller
                 return response()->json(['Error','Oops! You entered wrong Old password.']);
             }else{
                 return redirect()->back()->with('Error','Oops! You entered wrong Old password.');
+
             }
         }
 

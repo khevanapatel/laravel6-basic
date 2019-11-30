@@ -1,9 +1,8 @@
 @extends('layouts.admin.app')
-@section('css')
-   
+@section('title')
+    Settings
 @endsection
 @section('content')
-	<h1>User List</h1>
 	<table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
