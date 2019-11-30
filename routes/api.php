@@ -25,17 +25,12 @@ Route::post('login', 'Webservice\LoginController@login')->name('login');
 Route::post('forgot-password', 'Webservice\ForgotPasswordController@forgot')->name('password.reset');
 Route::post('reset-password', 'Webservice\ForgotPasswordController@reset')->name('password.reset.code');	
 Route::post('new-password', 'Webservice\ForgotPasswordController@new_password')->name('password.new.password');
-;
+
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/user', function (Request $request) {
             return $request->user();
         });
     Route::post('update-profile','ProfileController@update');
-}
-
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-
-//     // Route::post('update-profile','Webservice\UpadteProfileController@update');
-// }
-);
+    Route::post('change-password','ProfileController@changePassword');
+    Route::get('user-list','Admin\UserController@getList');
+});

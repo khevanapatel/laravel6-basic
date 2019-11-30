@@ -86,7 +86,6 @@ class RegistrationController extends Controller
                 'otp' => $otp,
                 'session_otp' => $sessionOtp,
             ]);
-            
     }
 
     protected function registered(Request $request, $user)
@@ -138,7 +137,7 @@ class RegistrationController extends Controller
 
             Mail::send('emails.apiVerifiedPassword',['user'=>$user,'otp'=>$otp],
                 function($message)use($user)
-                { 
+                {
                   $message->to($user->email);
                   $message->subject("Hello ".$user->name.", Activation for Account!");
                 }

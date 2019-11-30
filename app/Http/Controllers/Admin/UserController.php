@@ -6,12 +6,17 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Str;
 
 class UserController extends Controller
 {
-    public function getList(){
-    	$users = User::where('role_id',2)->get(); // fetching only user role data
-    	return view('admin.user.list',compact('users'));
+    public function getList(Request $request){
+        $users = User::where('role_id',2)->get(); // fetching only user role data
+        if($request->wantsJson()){
+            return response()->json(['Data',$users]);
+        }else{
+            return view('admin.user.list',compact('users'));
+        }
     }
 
     public function action(Request $request, $id){
