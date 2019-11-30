@@ -133,6 +133,11 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'password' => [
+            'regex' => 'Password must contain letters, numbers and special character(!@#$%)',
+        ],'new_password' => [
+            'regex' => 'Password must contain letters, numbers and special character(!@#$%)',
+        ],
     ],
 
     /*

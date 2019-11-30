@@ -22,15 +22,15 @@ Route::post('registration/resend-mail', 'Webservice\RegistrationController@resen
 Route::post('login', 'Webservice\LoginController@login')->name('login');
 
 //...Forgot Password...
-Route::post('forgot-password', 'Webservice\ForgotPasswordController@forgot')->name('password.reset');
-Route::post('reset-password', 'Webservice\ForgotPasswordController@reset')->name('password.reset.code');	
-Route::post('new-password', 'Webservice\ForgotPasswordController@new_password')->name('password.new.password');
+Route::post('password/forgot', 'Webservice\ForgotPasswordController@forgot')->name('password.forgot');
+Route::post('password/otp/verify', 'Webservice\ForgotPasswordController@otpVerify')->name('password.otp.verify');	
+Route::post('password/reset', 'Webservice\ForgotPasswordController@reset')->name('password.reset');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/user', function (Request $request) {
             return $request->user();
         });
-    Route::post('update-profile','ProfileController@update');
-    Route::post('change-password','ProfileController@changePassword');
-    Route::get('user-list','Admin\UserController@getList');
+    Route::post('profile/update','ProfileController@update');
+    Route::post('password/change','ProfileController@changePassword');
+    Route::get('user/list','Admin\UserController@getList');
 });

@@ -46,7 +46,7 @@ class ProfileController extends Controller
     public function changePassword(Request $request){
     	Validator::make($request->all(), [
             'old_password' => 'required|min:8',
-            'new_password' => 'required|min:8|same:password_confirmation',
+            'new_password' => 'required|min:8|same:password_confirmation|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[@!$#%]).*$/',
         ])->validate();
         if(Hash::check($request->old_password,Auth::user()->password)){
         	$user = User::find(Auth::user()->id);
