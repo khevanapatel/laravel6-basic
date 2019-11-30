@@ -7,11 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     {{ __('Login') }}
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+                    @include('layouts.alert')
                 </div>  
 
                 <div class="card-body">

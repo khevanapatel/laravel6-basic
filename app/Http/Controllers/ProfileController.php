@@ -34,7 +34,7 @@ class ProfileController extends Controller
             }
         }
         $user->save();
-        return redirect()->back()->with('success','Your profile is updated successfully.');
+        return redirect()->back()->with('success','Your profile has been updated successfully.');
     }
 
     // Change password by verifying old one first
@@ -47,7 +47,7 @@ class ProfileController extends Controller
         	$user = User::find(Auth::user()->id);
             $user->password = Hash::make($request->new_password);
             $user->save();
-            return redirect()->back()->with('success','Your password is changed successfully.');
+            return redirect()->back()->with('success','Your password has been changed successfully.');
         }
         else{
             return redirect()->back()->with('error','Oops! You entered wrong current password.');

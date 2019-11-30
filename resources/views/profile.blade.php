@@ -2,23 +2,15 @@
 @section('content')
     <div class="container">
         <div class="justify-content-center">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+            @include('layouts.alert')
             <div class="row">
                 <div id="profile" class="col-md-6 col-sm-12">
                     <div class="card">
                         <div class="card-header">{{ __('User Profile') }}</div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('updateprofile')}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('profile.update')}}" enctype="multipart/form-data">
                                 @csrf
+                                @method('PATCH')
                                 <div class="form-group row">
                                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -68,8 +60,9 @@
                    <div class="card">
                         <div class="card-header">{{ __('Change Password') }}</div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('changepassword') }}">
+                            <form method="POST" action="{{ route('password.change') }}">
                                 @csrf
+                                @method('PATCH')
                                 <div class="form-group row">
                                     <label for="old-password" class="col-md-4 col-form-label text-md-right">{{ __('Old Password') }}</label>
 

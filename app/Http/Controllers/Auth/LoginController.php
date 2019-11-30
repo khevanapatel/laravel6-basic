@@ -47,18 +47,19 @@ class LoginController extends Controller
             'email'=>'required|email',
             'password'=>'required'
         ]);
-        if(auth()->attempt(['email'=>$request->email,'password'=>$request->password])){
+        $remember = $request->has('remember') ? true : false;
+        if(auth()->attempt(['email'=>$request->email,'password'=>$request->password],$remember)){
 
             if(auth()->user()->is_active==0){
                 Auth::logout();
-                return back()->with('error', 'Your account has not yet been activated. Please check Your email');
+                return back()->with('error', 'Your account has been blocked, please contact to Admin');
             } else if (Auth::user() && Auth::user()->role_id==1) {
                 return redirect()->route('dashboard');
             } else if ( Auth::user() && Auth::user()->role_id==2) {
                 return redirect()->route('home');
             }
         }else {
-            return back()->with('error', 'Address email or/and password are incorrect.');
+            return back()->with('error', 'Your Email address or password is incorrect.');
         }
     }
     /**

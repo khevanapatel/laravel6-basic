@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
+Route::get('/', 'HomeController@welcome')->name('welcome');
 Auth::routes(['verify' => true]);
 
 
@@ -22,20 +23,20 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['user']], function () {
 	Route::get('/profile', 'ProfileController@index')->name('profile');
-	Route::post('/updateprofile', 'ProfileController@update')->name('updateprofile');
-	Route::post('/changepassword', 'ProfileController@changePassword')->name('changepassword');
+	Route::patch('/profile/update', 'ProfileController@update')->name('profile.update');
+	Route::patch('/password/change', 'ProfileController@changePassword')->name('password.change');
 });
 
 /************************************ Admin Routes ****************************************/
-Route::group(['middleware' => ['admin']], function () {
-	Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
+Route::group([ 'namespace' => 'Admin','middleware' => ['admin']], function () {
+	Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 	// User module //
-	Route::get('/user-list', 'Admin\UserController@getList')->name('user.list');
-	Route::post('/user-action/{id}', 'Admin\UserController@action')->name('user.action');
+	Route::get('/user/list', 'UserController@getList')->name('user.list');
+	Route::post('/user/action/{id}', 'UserController@action')->name('user.action');
 
 	// Setting Module //
-	Route::get('/setting/list','Admin\SettingController@getList')->name('setting.list');
-	Route::get('/setting/edit/{id}','Admin\SettingController@edit')->name('setting.edit');
-	Route::post('/setting/update/{id}','Admin\SettingController@update')->name('setting.update');
+	Route::get('/setting/list','SettingController@getList')->name('setting.list');
+	Route::get('/setting/edit/{id}','SettingController@edit')->name('setting.edit');
+	Route::patch('/setting/update/{id}','SettingController@update')->name('setting.update');
 });
