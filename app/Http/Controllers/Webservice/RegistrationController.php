@@ -97,12 +97,12 @@ class RegistrationController extends Controller
                 $message->subject("Hello $user->name, Verify Email Address");
             }
         );
-        return response()->json(['Message'=>'Your Registration Success Please Activate Your Accout From EMail','data' => $user->toArray()], 201);
+        return response()->json(['Status'=>'Success','Message'=>'Your Registration Success Please Activate Your Accout From EMail'], 201);
     }
 
     protected function activation(Request $request)
     {
-        $user=User::where('email', $request->email)->first();
+       return $user=User::where('email', $request->email)->first();
         if($user != null){ 
             $nowtime = strtotime(date('Y-m-d H:i:s'));
             $otptimeout = $user->session_otp+180;
@@ -112,15 +112,15 @@ class RegistrationController extends Controller
                     {
                         $user->email_verified_at = date('Y-m-d H:i:s');
                         $user->save();  
-                        return response()->json(['Success' => 'Your emailid Verified. Please Login.', 'data'=>  $user->toArray()]);         
+                        return response()->json(['Status'=>'Success','Message' => 'Your emailid Verified. Please Login.']);         
                     }else{
-                        return response()->json(['Error' => 'OTP is invalid, Enter Valid OTP.']);
+                        return response()->json(['Status'=>'Error','Message' => 'OTP is invalid, Enter Valid OTP.']);
                     }
                 }else{
-                    return response()->json(['Message' => 'OTP Session is expired. Please try again.']);   
+                    return response()->json(['Status'=>'Error','Message' => 'OTP Session is expired. Please try again.']);   
                 }
         }
-        return response()->json(['Message' => 'Please Enter Register Email Id']); 
+        return response()->json(['Status'=>'Error','Message' => 'Please Enter Register Email Id']); 
     }
 
     public function resend_otp(Request $request)
@@ -142,10 +142,10 @@ class RegistrationController extends Controller
                   $message->subject("Hello ".$user->name.", Activation for Account!");
                 }
             );
-            return response()->json(['Message' => 'One Time Password (OTP) has been sent to your registered email id, Please Enter OTP here to verify your email.']);
+            return response()->json(['Status'=>'Success','Message' => 'One Time Password (OTP) has been sent to your registered email id, Please Enter OTP here to verify your email.']);
         }
         else{
-            return response()->json(['Error' => 'This email not valid, Please enter register email.']);
+            return response()->json(['Status'=>'Error','Message' => 'This email not valid, Please enter register email.']);
         }
     }
 }

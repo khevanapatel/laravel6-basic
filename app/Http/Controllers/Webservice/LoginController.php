@@ -43,29 +43,29 @@ class LoginController extends Controller
             if(Auth::user()->email_verified_at != null){                     // Check user is Verified or not...
                 if(Auth::user()->is_active==0){
                     Auth::logout();
-                    return response()->json(['Error'=> 'Your account has not yet been activated. Please check Your email']);
+                    return response()->json(['Status'=>'Error','Message'=> 'Your account has not yet been activated. Please check Your email']);
                 }else if (Auth::user() && Auth::user()->role_id==2) {       // User Login...
                     if(Auth::user()->api_token == null){                    // If token is empty then generate token...
                         $user=User::find(Auth::user()->id);
                         $user->api_token = Str::random(60);
                         $user->save();
-                        return response()->json(['Message'=> 'Login Success','Data'=> $user]);
+                        return response()->json(['Status'=>'Success','Message'=> 'Login Success','Data'=> $user]);
                     }else{
-                        return response()->json(['Message'=> 'Login Success','Data'=> Auth::user()]);
+                        return response()->json(['Status'=>'Success','Message'=> 'Login Success','Data'=> Auth::user()]);
                     }
                 }else if (Auth::user() && Auth::user()->role_id==1) {
                     if(Auth::user()->api_token == null){                    // If token is empty then generate token...
                         $userAdmin=User::find(Auth::user()->id);
                         $userAdmin->api_token = Str::random(60);
                         $userAdmin->save();
-                        return response()->json(['Message'=> 'Login Success','Data'=> $userAdmin]);
+                        return response()->json(['Status'=>'Success','Message'=> 'Login Success','Data'=> $userAdmin]);
                     }
                 }
             }else{
-                return response()->json(['Message'=> 'Please Verify Your Email-address'],200);
+                return response()->json(['Status'=>'Error','Message'=> 'Please Verify Your Email-address'],200);
             }
         }else {
-            return response()->json(['Error'=> 'Email Address or/and password are incorrect.'],200);
+            return response()->json(['Status'=>'Error','Message'=> 'Email Address or/and password are incorrect.'],200);
         }
     }
    
@@ -84,6 +84,6 @@ class LoginController extends Controller
         return  $user = Auth::user();
         $user->api_token = null;
         $user->save();
-        return response()->json(['Message' => 'User logged out.'], 200);
+        return response()->json(['Status'=>'Success','Message' => 'User logged out.'], 200);
     }
 }

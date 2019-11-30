@@ -13,7 +13,7 @@ class UserController extends Controller
     public function getList(Request $request){
         $users = User::where('role_id',2)->get(); // fetching only user role data
         if($request->wantsJson()){
-            return response()->json(['Data',$users]);
+            return response()->json(['Status'=>'Success','Data',$users]);
         }else{
             return view('admin.user.list',compact('users'));
         }
