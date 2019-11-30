@@ -39,7 +39,6 @@ class LoginController extends Controller
         elseif ( Auth::user() && Auth::user()->role_id==2 && Auth::user()->is_active==1) {
             return '/home';
         }
-
     }
 
     public function login(Request $request){
