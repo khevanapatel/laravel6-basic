@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller
         );
     }
 
-    public function reset(Request $request)
+    public function otpVerify(Request $request)
     {
         if(!Auth::check())    
         {
@@ -80,7 +80,7 @@ class ForgotPasswordController extends Controller
         }
     }
 
-    public function new_password(Request $request)
+    public function reset(Request $request)
     {
           $user = User::where('email',$request->email)->first();
 
