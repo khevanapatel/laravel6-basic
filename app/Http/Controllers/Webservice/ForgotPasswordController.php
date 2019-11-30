@@ -98,7 +98,7 @@ class ForgotPasswordController extends Controller
           else{
             return response()->json(['Error' => 'Your Password confirmation does not match.']); 
           }
-          
+ 
         }else{
             return response()->json(['Error' => 'This email not valid, Please enter register email']); 
         }
