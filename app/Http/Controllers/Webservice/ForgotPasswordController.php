@@ -17,8 +17,7 @@ class ForgotPasswordController extends Controller
 {
     public function forgot(Request $request)
     {
-        $email = str_replace(' ','', $request->email);
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if($user != null){
             $otp = mt_rand(100000, 999999);
@@ -55,9 +54,7 @@ class ForgotPasswordController extends Controller
     {
         if(!Auth::check())    
         {
-            $email = str_replace(' ','', $request->email);
-            $otp = str_replace(' ','', $request->otp);
-            $user_id=User::where('email', $email)->select('id')->first();
+            $user_id=User::where('email', $request->email)->select('id')->first();
             if($user_id != Null)
             {   
                 $id = $user_id->id;
@@ -68,7 +65,7 @@ class ForgotPasswordController extends Controller
                 {   
                     if ($user->otp  == $request->otp)
                     {   
-                        return response()->json(['status'=>'error','message' => 'Welcome :- '.$user->email . ' verified, Please set/change your password here.'],202); 
+                        return response()->json(['status'=>'error','message' => 'Welcome :- '.$user->email . ' verified, Please set/change your password.'],202); 
                     }else{
                         return response()->json(['status'=>'error','message' => 'Invalid OTP. Enter Correct OTP Number.'],302); 
                     }
