@@ -31,12 +31,12 @@ class ForgotPasswordController extends Controller
 
             $this->sendEmail($user,$otp);
             if(count(Mail::failures()) > 0){
-                return response()->json(['Status'=>'Error','Message' => 'Failed to send password reset email, please try again.']); 
+                return response()->json(['status'=>'error','message' => 'Failed to send password reset email, please try again.'],302); 
             }
-            return response()->json(['Status'=>'Success','Message' => 'One Time Password (OTP) has been sent to your registered email id, Please Enter OTP here to reset your password.']);  
+            return response()->json(['status'=>'success','message' => 'One Time Password (OTP) has been sent to your registered email id, Please Enter OTP here to reset your password.'],200);  
         }
         else{
-            return response()->json(['Status'=>'Error','Message' => 'This email not valid, Please enter register email.']); 
+            return response()->json(['status'=>'error','message' => 'This email not valid, Please enter register email.'],302); 
         }
     }
 
@@ -68,13 +68,13 @@ class ForgotPasswordController extends Controller
                 {   
                     if ($user->otp  == $request->otp)
                     {   
-                        return response()->json(['Status'=>'Error','Message' => 'Welcome :- '.$user->email . ' verified, Please set/change your password here.']); 
+                        return response()->json(['status'=>'error','message' => 'Welcome :- '.$user->email . ' verified, Please set/change your password here.'],202); 
                     }else{
-                        return response()->json(['Status'=>'Error','Message' => 'Invalid OTP. Enter Correct OTP Number.']); 
+                        return response()->json(['status'=>'error','message' => 'Invalid OTP. Enter Correct OTP Number.'],302); 
                     }
                 }else
                 {
-                    return response()->json(['Status'=>'Error','Message' => 'OTP Session is expired.']); 
+                    return response()->json(['status'=>'error','message' => 'OTP Session is expired.'],302); 
                 } 
             }
         }
@@ -93,14 +93,14 @@ class ForgotPasswordController extends Controller
           if($request->password === $request->password_confirmation){
             $user->password = Hash::make($request->password);
             $user->save();
-            return response()->json(['Status'=>'Success','Message' => 'Your new password has been saved. Please use new password to login.']); 
+            return response()->json(['status'=>'success','message' => 'Your new password has been saved. Please use new password to login.'],200); 
           }
           else{
-            return response()->json(['Status'=>'Error','Message' => 'Your Password confirmation does not match.']); 
+            return response()->json(['status'=>'error','message' => 'Your Password confirmation does not match.'],302); 
           }
  
         }else{
-            return response()->json(['Status'=>'Error','Message' => 'This email not valid, Please enter register email']); 
+            return response()->json(['status'=>'error','message' => 'This email not valid, Please enter register email'],302); 
         }
     }
 }

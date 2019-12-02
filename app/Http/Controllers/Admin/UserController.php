@@ -11,12 +11,12 @@ use Str;
 class UserController extends Controller
 {
     public function getList(Request $request){
-        $users = User::where('role_id',2)->get(); // fetching only user role data
-        if($request->wantsJson()){
-            return response()->json(['Status'=>'Success','Data',$users]);
-        }else{
-            return view('admin.user.list',compact('users'));
-        }
+            $users = User::where('role_id',2)->get(); // fetching only user role data
+            if($request->wantsJson()){
+                return response()->json(['status'=>'success','Data',$users],200);
+            }else{
+                return view('admin.user.list',compact('users'));
+            }
     }
 
     public function action(Request $request, $id){

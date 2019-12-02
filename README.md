@@ -30,8 +30,8 @@ Step7: Login to Dashboard
 
 	Admin: 
 		Email : admin@gmail.com
-		password : 123456789
+		password : admin123!
 
 	User: 
 		Email: user@gmail.com
-		password: 123456789
+		password: user123!

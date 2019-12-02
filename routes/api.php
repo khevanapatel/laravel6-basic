@@ -33,8 +33,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('profile/update','ProfileController@update');
     Route::post('password/change','ProfileController@changePassword');
     // Route::get('user/list','Admin\UserController@getList');
+    Route::group(['middleware' => ['admin']], function () {
+        Route::get('user/list','Admin\UserController@getList');
+    });
 });
 
-Route::group(['middleware' => ['admin']], function () {
-	Route::get('user/list','Admin\UserController@getList');
-});
