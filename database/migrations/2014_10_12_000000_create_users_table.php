@@ -35,8 +35,18 @@ class CreateUsersTable extends Migration
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => date('Y-m-d H:m:s'),
-            'password' => bcrypt(123456789),
+            'password' => bcrypt('admin123!'),
             'role_id' => 1,
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:m:s')
+        ));
+
+        DB::table('users')->insert(array(
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'email_verified_at' => date('Y-m-d H:m:s'),
+            'password' => bcrypt('user123!'),
+            'role_id' => 2,
             'is_active' => 1,
             'created_at' => date('Y-m-d H:m:s')
         ));
