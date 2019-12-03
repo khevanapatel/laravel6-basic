@@ -83,7 +83,7 @@ class ForgotPasswordController extends Controller
 
           if($user != null){
           $validator = Validator::make($request->all(), [ 
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'password' => ['required', 'string', 'min:8', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[@!$#%]).*$/','confirmed'],
                 'password_confirmation' => ['required', 'string', 'min:8', 'same:password']
             ]);
             
@@ -95,7 +95,6 @@ class ForgotPasswordController extends Controller
           else{
             return response()->json(['status'=>'error','message' => 'Your Password confirmation does not match.'],302); 
           }
- 
         }else{
             return response()->json(['status'=>'error','message' => 'This email not valid, Please enter register email'],302); 
         }

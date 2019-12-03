@@ -30,7 +30,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('deleted_at')->nullable();
         });
 
-
         DB::table('users')->insert(array(
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
