@@ -20,15 +20,15 @@
             <tr>
                 <td>{{ $data->name }}</td>
                 <td>{{ $data->email }}</td>
-                <td>@if($data->is_active == 1) <span  class="badge badge-success">Active</span> @else <span class="badge badge-danger"> Block </span> @endif</td>
+                <td>@if($data->is_active == 1 && $data->email_verified_at != NULL ) <span  class="badge badge-success">Active</span> @else <span class="badge badge-danger"> Blocked </span> @endif</td>
                 <td>
                 	<form method="post" action="{{route('user.action',$data->id)}}" onsubmit="return confirm('Are you sure?')"> 
                 		@csrf
                 		<button type="submit" name="action" value="delete" class="btn btn-primary pr-2" >Delete</button>
-                		@if ($data->is_active == 1)
-                        <button type="submit" name="action" value="block" class="btn btn-danger"> Blocked </button>
+                		@if($data->is_active == 1  && $data->email_verified_at != NULL)
+                        <button type="submit" name="action" value="block" class="btn btn-danger"> Block </button>
                         @else
-                        <button type="submit" name="action" value="active" class="btn btn-primary"> Active </button>
+                        <button type="submit" name="action" value="active" class="btn btn-primary"> Activate </button>
                         @endif
                 	</form>
                   </td>

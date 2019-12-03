@@ -16,10 +16,10 @@ class Users
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->role_id === 2 && Auth::user()->is_active === 1) {
+        if (Auth::user() && Auth::user()->role_id === 2 && Auth::user()->is_active === 1 && Auth::user()->email_verified_at !== NULL) {
             // Redirect to path
             return $next($request);
-        } else if (Auth::user() && Auth::user()->role_id === 2 && Auth::user()->is_active === 0) {
+        } else if (Auth::user() && Auth::user()->role_id === 2 && Auth::user()->is_active === 0 && Auth::user()->email_verified_at === NULL) {
             // Redirect to login
            Auth::logout();
            return redirect()->route('login')->with('You are blocked!!');

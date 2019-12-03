@@ -16,10 +16,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->role_id === 1) {
+        if (Auth::user() && Auth::user()->role_id === 1 && Auth::user()->email_verified_at !== NULL) {
             // Redirect to path
             return $next($request);
-        } else if (Auth::user() && Auth::user()->role_id === 2) {
+        } else if (Auth::user() && Auth::user()->role_id === 2 && Auth::user()->email_verified_at === NULL) {
             // Redirect to user dashboard
              return redirect()->route('home');
         } else {
