@@ -27,7 +27,7 @@ class ResetPasswordController extends Controller
      */
     protected $redirectTo = '/home';
 
-    public function rules()
+     public function rules()
     {
         return [
             'email' => 'required|email',

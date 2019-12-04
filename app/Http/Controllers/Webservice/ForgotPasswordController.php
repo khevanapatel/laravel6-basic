@@ -30,12 +30,12 @@ class ForgotPasswordController extends Controller
 
             $this->sendEmail($user,$otp);
             if(count(Mail::failures()) > 0){
-                return response()->json(['status'=>'error','message' => 'Failed to send password reset email, please try again.'],302); 
+                return response()->json(['status'=>'error','message' => 'Failed to send password reset email, please try again.'],errorStatus()); 
             }
-            return response()->json(['status'=>'success','message' => 'One Time Password (OTP) has been sent to your registered email id, Please Enter OTP here to reset your password.'],200);  
+            return response()->json(['status'=>'success','message' => 'One Time Password (OTP) has been sent to your registered email id, Please Enter OTP here to reset your password.'],successStatus());  
         }
         else{
-            return response()->json(['status'=>'error','message' => 'This email not valid, Please enter register email.'],302); 
+            return response()->json(['status'=>'error','message' => 'This email not valid, Please enter register email.'],errorStatus()); 
         }
     }
 
@@ -65,13 +65,13 @@ class ForgotPasswordController extends Controller
                 {   
                     if ($user->otp  == $request->otp)
                     {   
-                        return response()->json(['status'=>'error','message' => 'Welcome :- '.$user->email . ' verified, Please set/change your password.'],202); 
+                        return response()->json(['status'=>'success','message' => 'Welcome :- '.$user->email . ' verified, Please set/change your password.'],successStatus()); 
                     }else{
-                        return response()->json(['status'=>'error','message' => 'Invalid OTP. Enter Correct OTP Number.'],302); 
+                        return response()->json(['status'=>'error','message' => 'Invalid OTP. Enter Correct OTP Number.'],errorStatus()); 
                     }
                 }else
                 {
-                    return response()->json(['status'=>'error','message' => 'OTP Session is expired.'],302); 
+                    return response()->json(['status'=>'error','message' => 'OTP Session is expired.'],errorStatus()); 
                 } 
             }
         }
@@ -82,21 +82,20 @@ class ForgotPasswordController extends Controller
           $user = User::where('email',$request->email)->first();
 
           if($user != null){
-          $validator = Validator::make($request->all(), [ 
-                'password' => ['required', 'string', 'min:8', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[@!$#%]).*$/','confirmed'],
-                'password_confirmation' => ['required', 'string', 'min:8', 'same:password']
+            $this->validate($request,[
+                'password' => ['required', 'string', 'min:8', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[@!$#%]).*$/', 'confirmed'],
             ]);
-            
+       
           if($request->password === $request->password_confirmation){
             $user->password = Hash::make($request->password);
             $user->save();
-            return response()->json(['status'=>'success','message' => 'Your new password has been saved. Please use new password to login.'],200); 
+            return response()->json(['status'=>'success','message' => 'Your new password has been saved. Please use new password to login.'],successStatus()); 
           }
           else{
-            return response()->json(['status'=>'error','message' => 'Your Password confirmation does not match.'],302); 
+            return response()->json(['status'=>'error','message' => 'Your Password confirmation does not match.'],errorStatus()); 
           }
         }else{
-            return response()->json(['status'=>'error','message' => 'This email not valid, Please enter register email'],302); 
+            return response()->json(['status'=>'error','message' => 'This email not valid, Please enter register email'],errorStatus()); 
         }
     }
 }
