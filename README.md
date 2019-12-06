@@ -1,37 +1,42 @@
-# laravel6-basic
-creating one laravel 6 demo for startup project
+<!-- # laravel6-basic -->
+# Laravel 6 demo project for startup
 
 
-Step1: First clone the project
+Step1: First clone the repository
 
-Step2: Install vendor
+Step2: Instalation
 
-	command: "composer install"
+	composer install
 
-Step3: Create your new database for this laravel project and Create a .env file without an APP_KEY= line.
+Step3: Create your new database for this laravel project and Create a .env.
  set hostname, database name, username, password
 
-DB_DATABASE=
-DB_USERNAME=
-DB_PASSWORD=
+	APP_KEY=
+	DB_DATABASE=
+	DB_USERNAME=
+	DB_PASSWORD=
 
 Step4: Run the following command to generate a key
-	command: "php artisan key:generate"
 
-Step5: Run migrate command to set datanbase tables
+	php artisan key:generate
 
-	command: "php artisan migrate" 
+Step5: Run migrate command to set database tables
+
+	php artisan migrate
 
 Step6: Now ready to run project
 
-	command: "php artisan serve"
+	php artisan serve
 
 Step7: Login to Dashboard
 
-	Admin: 
+Admin Credentials
+
 		Email : admin@gmail.com
 		password : admin123!
 
-	User: 
+
+User Credentials
+
 		Email: user@gmail.com
 		password: user123!
