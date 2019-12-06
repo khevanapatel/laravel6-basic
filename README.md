@@ -4,7 +4,7 @@
 
 Step1: First clone the repository
 
-Step2: Instalation
+Step2: installation
 
 	composer install
 
