@@ -12,13 +12,16 @@ Step3: Create your new database for this laravel project and Create a .env file 
  set hostname, database name, username, password
 
 DB_DATABASE=
+
 DB_USERNAME=
+
 DB_PASSWORD=
 
 Step4: Run the following command to generate a key
+
 	command: "php artisan key:generate"
 
-Step5: Run migrate command to set datanbase tables
+Step5: Run migrate command to set database tables
 
 	command: "php artisan migrate" 
 
